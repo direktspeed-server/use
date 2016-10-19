@@ -7,8 +7,8 @@
 		- require directory
 	*/
 	var fs = require('fs');
-	module.exports = function(base_path){
-		return function(Path){
+	module.exports = function(base_path, install){
+		this.process = function(Path){
 			var $path = base_path + '/' +Path;
 			try {
 				var stats = fs.lstatSync($path);
@@ -39,4 +39,8 @@
 				}
 			}
 		}
+		if (install) function () {
+			// Install if missing
+			return this.process
+		} else return this.process
 	}
